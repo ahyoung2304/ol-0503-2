@@ -1242,15 +1242,14 @@
 
 
 <body>
-<!--<div id="map" style="width: 100%; height: 500px;">osm</div>-->
+<div id="map" style="width: 100%; height: 500px;">osm</div>
 <div>.</div>
 <div id="map1" style="width:100%;height:400px;"> ngii</div>
 <div id="map2" style="width:100%;height:500px;"> 중랑구/마크업</div>
 
 <div id="popup-container" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    ddddddddd
-    <div id="popup-content">dddddddd</div>
+    <div id="popup-content"></div>
 </div>
 
 
@@ -1261,6 +1260,8 @@
 </body>
 
 <script>
+    // import ol from "ol";
+
     var map1;
     window.onload = function() {
         map1 = new ngii_wmts.map("map1", {zoom: 2, center: [962550.8027730997, 1952645.7994081734]});
@@ -1283,16 +1284,20 @@
 //         });
 //         markerFeature.setStyle(iconStyle);
         var markerFeatures = [];
-        // markerFeatures.push(new ol.Feature({
-        //     geometry: new ol.geom.Point([962550.8027730997, 1952645.7994081734])
-        // }));
-        //중랑구 좌표   [-107501.8309231466, 2488067.074960196] / [962693.8381000723, 1952575.9437981292]
         markerFeatures.push(new ol.Feature({
-            geometry: new ol.geom.Point( [14144788.620417521, 4471841.219947645] )
+            geometry: new ol.geom.Point([962550.8027730997, 1952645.7994081734])
         }));
+        markerFeatures.push(new ol.Feature({
+            geometry: new ol.geom.Point([964050.8027730997, 1956400.7994081734])
+        }));
+        markerFeatures.push(new ol.Feature({
+            geometry: new ol.geom.Point([962693.8381000723, 1952575.9437981292])
+        }));
+        //중랑구 좌표   [-107501.8309231466, 2488067.074960196] / [962693.8381000723, 1952575.9437981292]
         // markerFeatures.push(new ol.Feature({
-        //     geometry: new ol.geom.Point([962693.8381000723, 1952575.9437981292])
+        //     geometry: new ol.geom.Point( [14144788.620417521, 4471841.219947645] )
         // }));
+
 
         for (var i = 0; i < markerFeatures.length; i++) {
             markerFeatures[i].setStyle(iconStyle);
@@ -1331,8 +1336,14 @@
             }
         });
 
-
-
+        map1._getMap().on('click', function(evt) {
+            var coord = evt.coordinate;
+           //  var hdms = new ol.coordinate.toStringHDMS(ol.proj.transform(coord, 'EPSG:3857', 'EPSG:4326'));
+           // console.log(hdms);
+           //  var lonLat = ol.proj.transform(coord, 'EPSG:3857', 'EPSG:5179');
+            var lonLat = ol.proj.transform(coord);
+            console.log("Longitude: " + lonLat[0] + ", Latitude: " + lonLat[1]);
+        });
     };
 
 
